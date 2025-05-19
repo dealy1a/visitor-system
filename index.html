@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Visitor Check-In</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <h2>Visitor Check-In Page</h2>
+  <p>This is the placeholder for your visitor form (simplified).</p>
+  <form onsubmit="checkIn(event)">
+    <input type="text" id="name" placeholder="Full Name" required />
+    <input type="text" id="company" placeholder="Company" required />
+    <select id="idType" required>
+      <option value="" disabled selected>Select ID Type</option>
+      <option value="State issued ID">State issued ID</option>
+      <option value="Passport">Passport</option>
+      <option value="Company ID">Company ID</option>
+    </select>
+    <input type="text" id="purpose" placeholder="Purpose" required />
+    <input type="text" id="host" placeholder="Host" required />
+    <button type="submit">Check In</button>
+  </form>
+  <div style="margin-top: 20px;">
+    <button onclick="window.location.href='login.html'">Admin Login</button>
+  </div>
+
+  <script>
+    function checkIn(event) {
+      event.preventDefault();
+      const name = document.getElementById('name').value;
+      const company = document.getElementById('company').value;
+      const idType = document.getElementById('idType').value;
+      const purpose = document.getElementById('purpose').value;
+      const host = document.getElementById('host').value;
+      const checkIn = new Date().toLocaleString();
+
+      const visitor = { name, company, idType, purpose, host, checkIn, checkOut: "" };
+      const visitors = JSON.parse(localStorage.getItem("visitors") || "[]");
+      visitors.push(visitor);
+      localStorage.setItem("visitors", JSON.stringify(visitors));
+
+      alert("Visitor checked in!");
+      document.querySelector("form").reset();
+    }
+  </script>
+</body>
+</html>

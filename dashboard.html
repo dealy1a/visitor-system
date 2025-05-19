@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <script>
+    if (sessionStorage.getItem('isAdmin') !== 'true') {
+      window.location.href = 'login.html';
+    }
+  </script>
+  <h1>Admin Dashboard</h1>
+  <canvas id="chart1" width="400" height="200"></canvas>
+  <canvas id="chart2" width="400" height="200"></canvas>
+  <button onclick="sessionStorage.clear(); location.href='login.html';">Logout</button>
+  <script>
+    const ctx1 = document.getElementById('chart1').getContext('2d');
+    const chart1 = new Chart(ctx1, {
+      type: 'bar',
+      data: {
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+        datasets: [{
+          label: 'Visitors',
+          data: [5, 12, 8, 10, 6],
+          backgroundColor: '#1976d2'
+        }]
+      }
+    });
+
+    const ctx2 = document.getElementById('chart2').getContext('2d');
+    const chart2 = new Chart(ctx2, {
+      type: 'pie',
+      data: {
+        labels: ['State ID', 'Passport', 'Company ID'],
+        datasets: [{
+          data: [10, 5, 8],
+          backgroundColor: ['#1976d2', '#43a047', '#fbc02d']
+        }]
+      }
+    });
+  </script>
+</body>
+</html>
